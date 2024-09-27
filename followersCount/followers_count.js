@@ -1,6 +1,6 @@
 let count =0;
 
-function increaseCoutn(){
+function increaseCount(){
     count++;
     displayCount();
     checkCountValue();
