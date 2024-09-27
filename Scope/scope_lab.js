@@ -27,3 +27,16 @@ show();
 // console.log(functionVar);
 // console.log(functionLet);
 // console.log(functionConst);
+{
+    let name="Saday";
+    var surnname="Samnotra";
+    const phoneNumber=7006202029;
+}
+
+let name="Shauryaman";
+var surname = "Sharma";
+const phoneNumber = 7006406668;
+
+console.log(name);
+console.log(surname);
+console.log(phoneNumber);
