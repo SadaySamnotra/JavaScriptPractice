@@ -5,16 +5,16 @@ xhr.open('GET', url, true);
 xhr.responseType = 'json';
 
 xhr.onload = function () {
-  if (xhr.status === 200) { // Check for successful response
+  if (xhr.status === 200) { 
     var articles = xhr.response.articles;
     var articlesDiv = document.getElementById('articles');
 
-    var articleDiv = document.createElement('div'); // Create single article div outside the loop
+    var articleDiv = document.createElement('div'); 
     articleDiv.classList.add('article');
 
     articles.forEach(function (article) {
-      // Reuse the articleDiv element for each article
-      articleDiv.innerHTML = ''; // Clear previous content
+      
+      articleDiv.innerHTML = ''; 
 
       var title = document.createElement('h2');
       title.textContent = article.title;
@@ -54,10 +54,10 @@ xhr.onload = function () {
 
       
 
-      articlesDiv.appendChild(articleDiv.cloneNode(true)); // Clone and append to avoid overwriting
+      articlesDiv.appendChild(articleDiv.cloneNode(true)); 
     });
   } else {
-    console.error("Error fetching articles:", xhr.statusText); // Handle error
+    console.error("Error fetching articles:", xhr.statusText); 
   }
 };
 
