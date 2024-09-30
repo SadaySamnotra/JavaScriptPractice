@@ -1,41 +1,38 @@
-function showWeatherDetails(event){
-    event.preventDefault(); // Prevent default form submission behavior
+function showWeatherDetailsLatLong(event) {
+    event.preventDefault();
 
-  const city = document.getElementById('city').value;
+    const lat = document.getElementById('latitude').value;
+    const lon = document.getElementById('longitude').value;
 
-  // Validate city input (optional)
-  if (!city.trim()) {
-    alert('Please enter a city name.');
-    return; // Exit if no city is entered
-  }
+    if (!lat.trim() || isNaN(lat) || !lon.trim() || isNaN(lon)) {
+        alert("Please enter valid latitude and longitude.");
+        return;
+    }
 
-  const apiKey = '670096516819bec2be645e0fb2486685'; // Replace with your API key
-  const apiUrlBase = 'https://api.openweathermap.org/data/2.5/weather?q='; // Use city name parameter
+    const apiKey = '670096516819bec2be645e0fb2486685'; // Your actual API key
+    const apiUrlBase = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
-  // Construct the API URL with city and API key
-  const apiUrl = `${apiUrlBase}${city}&appid=${apiKey}`;
-
-  fetch(apiUrl)
-    .then(response => {
-      if (!response.ok) { // Check for non-200 status codes
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      const weatherInfo = document.getElementById('weatherInfo');   
-
-      weatherInfo.innerHTML = `<h2>Weather in ${data.name}</h2>
-                                 <p>Temperature: ${data.main.temp}   
- &#8541;</p>
-                                 <p>Weather: ${data.weather[0].description}</p>`;
-    })
-    .catch(error => { // Handle both network and parsing errors
-      console.error('Error fetching weather:', error);
-      const weatherInfo = document.getElementById('weatherInfo');
-      weatherInfo.innerHTML = `<p>Failed to fetch weather.   
- Please try again.</p>`;
-    });
+    fetch(apiUrlBase)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const weatherInfo = document.getElementById('weatherInfo');
+            weatherInfo.innerHTML = `
+                <h2>Weather at City: ${data.name}</h2>
+                <p>Temperature: ${data.main.temp}°C</p>
+                <p>Latitude: ${lat}</p>
+                <p>Longitude: ${lon}</p>
+                <h2>Weather: ${data.weather[0].description}</h2>`;
+        })
+        .catch(error => {
+            console.error('Error fetching weather:', error);
+            const weatherInfo = document.getElementById('weatherInfo');
+            weatherInfo.innerHTML = `<p>Failed to fetch weather. Please try again.</p>`;
+        });
 }
 
-document.getElementById('weatherForm').addEventListener('submit', showWeatherDetails);
+document.getElementById('weatherForm').addEventListener('submit', showWeatherDetailsLatLong);
