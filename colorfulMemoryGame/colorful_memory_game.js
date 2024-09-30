@@ -58,7 +58,7 @@ function checkMath(){
 }
 
 function startGame(){
-    let timeLeft=30;
+    let timeLeft=100;
     startButton.disabled=true;
     score=0;
     scoreElement.textContent=`Score: ${score}`;
